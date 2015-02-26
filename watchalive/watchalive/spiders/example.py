@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+from watchalive.items import WatchaliveItem
 
 class ExampleSpider(scrapy.Spider):
     name = "douyu"
@@ -16,16 +17,20 @@ class ExampleSpider(scrapy.Spider):
     def parse(self, response):
         # Douyu
         if 'douyutv'in response.url:
+            item = WatchaliveItem()
             if 'dota2' in response.url:
                 print "斗鱼TV  Dota2主播："
             elif 'sc' in response.url:
                 print "斗鱼TV  SC2主播："
             print "-" * 50
             for user in response.xpath('//*[@id="item_data"]/ul/li'):
+                item['name'] = user.xpath('a/div[1]/p/span[2]/text()').extract()[0]
+                item['title'] = user.xpath('a/@title').extract()[0]
                 name = user.xpath('a/div[1]/p/span[2]/text()').extract()[0]
                 title = user.xpath('a/@title').extract()[0]
                 # name = response.xpath('//*[@id="item_data"]/ul/li/a/div[1]/p/span[2]/text()').extract()
                 print name + '\t' + title
+                yield item
 
         # Zhanqi
         if 'zhanqi' in response.url:
@@ -35,7 +40,6 @@ class ExampleSpider(scrapy.Spider):
                 print "战旗TV  SC2 主播："
             print "-" * 50
             for user in response.xpath('//*[@id="hotList"]/li'):
-                status = ""
                 try:
                     status = user.xpath('div[1]/i/text()').extract()[0]
                     if status.encode('utf8') == '休息':
@@ -55,6 +59,12 @@ class ExampleSpider(scrapy.Spider):
                 print "火猫TV  SC2 主播："
             print "-" * 50
             for user in response.xpath('//*[@id="live_list"]/div'):
+                try:
+                    status = user.xpath('dl[1]/a/text()').extract()[0]
+                    if status.encode('utf8') == '主播正在休息':
+                        continue
+                except:
+                    pass
                 name = user.xpath('dl[2]/dd/a/text()').extract()[0]
                 title = user.xpath('dl[2]/dt/a/@title').extract()[0]
                 print name + '\t' + title
