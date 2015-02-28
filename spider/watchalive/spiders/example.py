@@ -18,27 +18,35 @@ class ExampleSpider(scrapy.Spider):
         # Douyu
         if 'douyutv'in response.url:
             item = WatchaliveItem()
+            item['platform'] = 'douyu'
             if 'dota2' in response.url:
-                print "斗鱼TV  Dota2主播："
+                item['game'] = 'dota2'
+                # print "斗鱼TV  Dota2主播："
             elif 'sc' in response.url:
-                print "斗鱼TV  SC2主播："
-            print "-" * 50
+                item['game'] = 'sc2'
+                # print "斗鱼TV  SC2主播："
+            # print "-" * 50
             for user in response.xpath('//*[@id="item_data"]/ul/li'):
-                item['name'] = user.xpath('a/div[1]/p/span[2]/text()').extract()[0]
-                item['title'] = user.xpath('a/@title').extract()[0]
+                item['playerName'] = user.xpath('a/div[1]/p/span[2]/text()').extract()[0]
+                item['playerTitle'] = user.xpath('a/@title').extract()[0]
+                item['playerThumb'] = user.xpath('a/span/img/@data-original').extract()[0]
                 name = user.xpath('a/div[1]/p/span[2]/text()').extract()[0]
                 title = user.xpath('a/@title').extract()[0]
                 # name = response.xpath('//*[@id="item_data"]/ul/li/a/div[1]/p/span[2]/text()').extract()
-                print name + '\t' + title
+                # print name + '\t' + title
                 yield item
 
         # Zhanqi
         if 'zhanqi' in response.url:
+            item = WatchaliveItem()
+            item['platform'] = 'zhanqi'
             if 'dota2' in response.url:
-                print "战旗TV  Dota2 主播："
+                item['game'] = 'dota2'
+                # print "战旗TV  Dota2 主播："
             elif 'sc2' in response.url:
-                print "战旗TV  SC2 主播："
-            print "-" * 50
+                item['game'] = 'sc2'
+                # print "战旗TV  SC2 主播："
+            # print "-" * 50
             for user in response.xpath('//*[@id="hotList"]/li'):
                 try:
                     status = user.xpath('div[1]/i/text()').extract()[0]
@@ -46,18 +54,26 @@ class ExampleSpider(scrapy.Spider):
                         continue
                 except:
                     pass
+                item['playerName'] = user.xpath('div[2]/div/a[1]/text()').extract()[0]
+                item['playerTitle'] = user.xpath('div[2]/a/text()').extract()[0]
+                item['playerThumb'] = user.xpath('div[1]/a/img/@src').extract()[0]
                 name = user.xpath('div[2]/div/a[1]/text()').extract()[0]
                 title = user.xpath('div[2]/a/text()').extract()[0]
-                print name + '\t' + title
-        print '\n'
+                # print name + '\t' + title
+                yield item
+        # print '\n'
 
         # Huomao
         if 'huomao' in response.url:
+            item = WatchaliveItem()
+            item['platform'] = 'huomao'
             if 'gid=23' in response.url:
-                print "火猫TV  Dota2 主播："
+                item['game'] = 'dota2'
+                # print "火猫TV  Dota2 主播："
             elif 'gid=11' in response.url:
-                print "火猫TV  SC2 主播："
-            print "-" * 50
+                item['game'] = 'sc2'
+                # print "火猫TV  SC2 主播："
+            # print "-" * 50
             for user in response.xpath('//*[@id="live_list"]/div'):
                 try:
                     status = user.xpath('dl[1]/a/text()').extract()[0]
@@ -65,7 +81,11 @@ class ExampleSpider(scrapy.Spider):
                         continue
                 except:
                     pass
+                item['playerName'] = user.xpath('dl[2]/dd/a/text()').extract()[0]
+                item['playerTitle'] = user.xpath('dl[2]/dt/a/@title').extract()[0]
+                item['playerThumb'] = 'http://www.huomaotv.com' + user.xpath('dl[1]/dd/a/img/@src').extract()[0]
                 name = user.xpath('dl[2]/dd/a/text()').extract()[0]
                 title = user.xpath('dl[2]/dt/a/@title').extract()[0]
-                print name + '\t' + title
-        print '\n'
+                # print name + '\t' + title
+                yield item
+        # print '\n'

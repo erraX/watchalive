@@ -12,6 +12,7 @@ BOT_NAME = 'watchalive'
 
 SPIDER_MODULES = ['watchalive.spiders']
 NEWSPIDER_MODULE = 'watchalive.spiders'
+ITEM_PIPELINES = { 'watchalive.pipelines.WatchalivePipeline': 300}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'watchalive (+http://www.yourdomain.com)'

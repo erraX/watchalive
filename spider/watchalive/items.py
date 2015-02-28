@@ -9,8 +9,9 @@ import scrapy
 
 class WatchaliveItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    name = scrapy.Field()
-    title = scrapy.Field()
-    img = scrapy.Field()
-    status = scrapy.Field()
+    platform = scrapy.Field()
+    game = scrapy.Field()
+    playerName = scrapy.Field()
+    playerTitle = scrapy.Field()
+    playerThumb = scrapy.Field()
+    playerStatus = scrapy.Field()
