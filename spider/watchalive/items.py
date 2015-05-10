@@ -11,6 +11,8 @@ class WatchaliveItem(scrapy.Item):
     # define the fields for your item here like:
     platform = scrapy.Field()
     game = scrapy.Field()
+    link = scrapy.Field()
+    watchpeople = scrapy.Field()
     playerName = scrapy.Field()
     playerTitle = scrapy.Field()
     playerThumb = scrapy.Field()

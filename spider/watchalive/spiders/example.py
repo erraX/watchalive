@@ -30,6 +30,7 @@ class ExampleSpider(scrapy.Spider):
                 item['playerName'] = user.xpath('a/div[1]/p/span[2]/text()').extract()[0]
                 item['playerTitle'] = user.xpath('a/@title').extract()[0]
                 item['playerThumb'] = user.xpath('a/span/img/@data-original').extract()[0]
+                item['link'] = 'http://www.douyutv.com' + user.xpath('a/@href').extract()[0]
                 name = user.xpath('a/div[1]/p/span[2]/text()').extract()[0]
                 title = user.xpath('a/@title').extract()[0]
                 # name = response.xpath('//*[@id="item_data"]/ul/li/a/div[1]/p/span[2]/text()').extract()
@@ -55,6 +56,7 @@ class ExampleSpider(scrapy.Spider):
                 except:
                     pass
                 item['playerName'] = user.xpath('div[2]/div/a[1]/text()').extract()[0]
+                item['link'] = 'http://www.zhanqi.tv' + user.xpath('div[2]/div/a/@href').extract()[0]
                 item['playerTitle'] = user.xpath('div[2]/a/text()').extract()[0]
                 item['playerThumb'] = user.xpath('div[1]/a/img/@src').extract()[0]
                 name = user.xpath('div[2]/div/a[1]/text()').extract()[0]
@@ -82,6 +84,7 @@ class ExampleSpider(scrapy.Spider):
                 except:
                     pass
                 item['playerName'] = user.xpath('dl[2]/dd/a/text()').extract()[0]
+                item['link'] = 'http://www.huomaotv.com' + user.xpath('dl[1]/dt/a[2]/@href').extract()[0]
                 item['playerTitle'] = user.xpath('dl[2]/dt/a/@title').extract()[0]
                 item['playerThumb'] = 'http://www.huomaotv.com' + user.xpath('dl[1]/dd/a/img/@src').extract()[0]
                 name = user.xpath('dl[2]/dd/a/text()').extract()[0]

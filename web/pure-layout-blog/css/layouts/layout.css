@@ -1,0 +1,37 @@
+.thumb {
+    width: 250px;
+}
+
+ul, li {
+    list-style: none;
+    padding: 0;
+}
+
+.player {
+    margin-right: 50px;
+    /*float: left;*/
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.player > div {
+    width: 250px;
+}
+
+.description {
+    width: 250px;
+}
+
+.playername {
+    color: #999;
+    font-size: 12px;
+    text-align: left;
+    width: 80px;
+}
+
+.title {
+    font-size: 12px;
+    text-align: left;
+    width: 250px;
+    margin: 5px 0 10px 0;
+}

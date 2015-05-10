@@ -8,9 +8,9 @@ var server = http.createServer(function(request, response) {
     var pathname = url.parse(request.url).pathname;
     var realPath = "";
     if (pathname === "/") {
-        realPath = "../web/index.html";
+        realPath = "../index.html";
     } else {
-        realPath = "../web" + pathname;
+        realPath = "../" + pathname;
     }
     console.log(pathname);
     console.log(realPath);
